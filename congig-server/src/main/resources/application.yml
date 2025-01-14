@@ -1,0 +1,18 @@
+server:
+  port: 8888
+
+spring:
+  application:
+    name: config-server
+  cloud:
+    config:
+      server:
+        git:
+          uri: https://github.com/Nazarii17/config-service.git
+#          username: your-git-username      # Optional if the repo is private
+#          password: your-git-password      # Optional if the repo is private
+          default-label: main              # Specify the branch (default is 'master')
+
+application:
+  greeting:
+    message: Config service is up
