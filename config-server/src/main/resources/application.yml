@@ -16,3 +16,9 @@ spring:
 application:
   greeting:
     message: Config service is up
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health

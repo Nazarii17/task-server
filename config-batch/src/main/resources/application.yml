@@ -1,0 +1,37 @@
+spring:
+  application:
+    name: config-batch
+  datasource:
+    url: jdbc:mysql://localhost:3307/task_server_schema
+    username: batch_user
+    password: batchuser
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  config:
+    import: optional:configserver:http://localhost:8888
+  cloud:
+    config:
+      uri: http://localhost:8888
+      name: config-batch
+      profile: default
+      fail-fast: true
+      retry:
+        max-attempts: 3
+        initial-interval: 1000
+        multiplier: 2
+        max-interval: 5000
+
+  jpa:
+    hibernate:
+      ddl-auto: update # Adjust as needed: validate, update, create, create-drop
+    show-sql: true # Logs SQL queries for debugging
+    properties:
+      hibernate:
+        format_sql: true # Formats the SQL output for better readability
+
+  batch:
+    jdbc:
+      initialize-schema: always # Ensures Spring Batch creates required tables
+
+server:
+  port: 8081
+

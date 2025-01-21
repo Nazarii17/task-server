@@ -1,0 +1,32 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: task-server
+  config:
+    import: optional:configserver:http://localhost:8888
+  cloud:
+    config:
+      uri: http://localhost:8888
+      name: task-server
+      profile: default
+      fail-fast: true
+      retry:
+        max-attempts: 3
+        initial-interval: 1000
+        multiplier: 2
+        max-interval: 5000
+
+management:
+  health:
+    db:
+      enabled: true  # Ensure built-in health checks like DB are enabled
+    diskspace:
+      enabled: true  # Enable diskspace health check
+
+  endpoints:
+    web:
+      exposure:
+        include: refresh, health, info, metrics
+
