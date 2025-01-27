@@ -15,8 +15,8 @@
 
 	<modules>
 		<module>config-server</module>
-		<module>task-server</module>
 		<module>config-batch</module>
+		<module>task-server</module>
 	</modules>
 
 	<properties>

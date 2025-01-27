@@ -4,6 +4,14 @@ server:
 spring:
   application:
     name: task-server
+  datasource:
+    url: jdbc:mysql://localhost:3307/task_server_schema
+    username: batch_user
+    password: batchuser
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  batch:
+    jdbc:
+      initialize-schema: always
   config:
     import: optional:configserver:http://localhost:8888
   cloud:
@@ -30,3 +38,5 @@ management:
       exposure:
         include: refresh, health, info, metrics
 
+tasks:
+  location: classpath:tasks/

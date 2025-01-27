@@ -31,3 +31,5 @@ build/
 
 ### VS Code ###
 .vscode/
+/task-server/src/main/resources/tasks/config-batch-3.4.1.jar
+/task-server/src/main/resources/tasks/
