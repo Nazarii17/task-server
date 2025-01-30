@@ -1,6 +1,7 @@
 package com.ntj.config.batch;
 
 import com.ntj.config.ApplicationProperties;
+import com.ntj.config.SimpleStepExecutionListener;
 import com.ntj.config.decider.JobDecider;
 import com.ntj.domain.entity.AppConfigurationSnapshot;
 import com.ntj.domain.record.AppConfigRecord;
@@ -42,6 +43,7 @@ public class BatchConfig {
     private final ApplicationProperties applicationProperties;
     private final AppConfigurationSnapshotRepository appConfigurationSnapshotRepository;
     private final TaskService taskService;
+    private final SimpleStepExecutionListener simpleStepExecutionListener;
 
     @Bean
     @Primary
@@ -155,6 +157,7 @@ public class BatchConfig {
                     return RepeatStatus.FINISHED;
                 }, platformTransactionManager)
 
+                .listener(simpleStepExecutionListener)
                 .allowStartIfComplete(true)
 
                 .build();

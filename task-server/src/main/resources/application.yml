@@ -4,6 +4,9 @@ server:
 spring:
   application:
     name: task-server
+  jpa:
+    hibernate:
+      ddl-auto: update
   datasource:
     url: jdbc:mysql://localhost:3307/task_server_schema
     username: batch_user
@@ -25,6 +28,23 @@ spring:
         initial-interval: 1000
         multiplier: 2
         max-interval: 5000
+  quartz:
+    job-store-type: jdbc
+    jdbc:
+      initialize-schema: always
+    properties:
+      org:
+        quartz:
+          job-store-type: JDBC
+          jdbc:
+            initialize-schema: NEVER
+          properties:
+            org.quartz.jobStore:
+              tablePrefix: task_server_schema.QRTZ_
+              driverDelegateClass: org.springframework.scheduling.quartz.LocalDataSourceJobStore
+            org.quartz.threadPool:
+              threadNamePrefix: scheduler-worker
+              threadCount: 25
 
 management:
   health:

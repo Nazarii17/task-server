@@ -23,6 +23,7 @@ public class TaskController {
      */
     @PostMapping("/{jarFileName}")
     public void launchTask(@PathVariable String jarFileName, @RequestBody Map<String, String> properties) {
+        properties.put("source", "TASK_CONTROLLER");
         taskLauncherService.launchTask(jarFileName, properties);
     }
 }

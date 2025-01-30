@@ -31,14 +31,14 @@ public class ApplicationConfigSnapshotProcessor implements ItemProcessor<AppConf
 
             final Long taskExecutionId = taskService.getCurrentTaskExecutionId();
 
-            return new AppConfigurationSnapshot(
-                    UUID.randomUUID(),
-                    record.appName(),
-                    record.resources(),
-                    propertySources,
-                    LocalDateTime.now(),
-                    taskExecutionId
-            );
+            return AppConfigurationSnapshot.builder()
+                    .id(UUID.randomUUID())
+                    .appName(record.appName())
+                    .resourcesData(record.resources())
+                    .propertySources(propertySources)
+                    .snapshotDateTime(LocalDateTime.now())
+                    .taskId(taskExecutionId)
+                    .build();
         } catch (Exception e) {
             throw new IllegalStateException("Failed to process record: " + record, e);
         }

@@ -4,10 +4,7 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -16,6 +13,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+@Builder
 @Table(name = "app_configuration_snapshot")
 @Entity
 public class AppConfigurationSnapshot {
@@ -32,5 +30,9 @@ public class AppConfigurationSnapshot {
     private LocalDateTime snapshotDateTime;
     @Column(name = "task_id")
     private Long taskId;
+    @Column(name = "status")
+    private String status;
+    @Column(name = "source")
+    private String source;
 
 }
