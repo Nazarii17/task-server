@@ -1,7 +1,7 @@
 package com.ntj.config.batch;
 
 import com.ntj.config.ApplicationProperties;
-import com.ntj.config.SimpleStepExecutionListener;
+import com.ntj.config.listener.SimpleStepExecutionListener;
 import com.ntj.config.decider.JobDecider;
 import com.ntj.domain.entity.AppConfigurationSnapshot;
 import com.ntj.domain.record.AppConfigRecord;

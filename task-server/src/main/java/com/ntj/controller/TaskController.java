@@ -3,7 +3,9 @@ package com.ntj.controller;
 import com.ntj.service.TaskLauncherService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/tasks")
@@ -16,14 +18,17 @@ public class TaskController {
     }
 
     /**
-     * Launches a task based on the provided JAR file name and properties.
+     * Launches a task based on the provided Task name and properties.
      *
-     * @param jarFileName The name of the JAR file to launch (e.g., config-batch-3.4.1.jar).
+     * @param taskName The name of the Task to launch (e.g., config-batch).
      * @param properties  Additional deployment properties for the task.
      */
-    @PostMapping("/{jarFileName}")
-    public void launchTask(@PathVariable String jarFileName, @RequestBody Map<String, String> properties) {
+    @PostMapping("/{taskName}")
+    public void launchTask(@PathVariable String taskName, @RequestBody Map<String, String> properties) {
+        if (Objects.isNull(properties)) {
+            properties = new HashMap<>();
+        }
         properties.put("source", "TASK_CONTROLLER");
-        taskLauncherService.launchTask(jarFileName, properties);
+        taskLauncherService.launchTask(taskName, properties);
     }
 }

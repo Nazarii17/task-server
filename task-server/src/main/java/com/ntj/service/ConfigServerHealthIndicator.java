@@ -1,5 +1,6 @@
 package com.ntj.service;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.HealthIndicator;
 import org.springframework.stereotype.Component;
@@ -8,7 +9,9 @@ import org.springframework.web.client.RestTemplate;
 @Component
 public class ConfigServerHealthIndicator implements HealthIndicator {
 
-    private final String configServerUrl = "http://localhost:8888/actuator/health";
+    @Value("${application.config-server-health-url}")
+    private String configServerHealthUrl;
+
     private final RestTemplate restTemplate;
 
     public ConfigServerHealthIndicator() {
@@ -19,7 +22,7 @@ public class ConfigServerHealthIndicator implements HealthIndicator {
     public Health health() {
         try {
             // Check if Config Server is up by hitting its /actuator/health endpoint
-            restTemplate.getForObject(configServerUrl, String.class);
+            restTemplate.getForObject(configServerHealthUrl, String.class);
             return Health.up().withDetail("Config Server", "Up and running").build();
         } catch (Exception e) {
             return Health.down().withDetail("Config Server", "Unavailable").build();

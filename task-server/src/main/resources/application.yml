@@ -1,6 +1,10 @@
 server:
   port: 8080
 
+application:
+  config-server-base-url: http://localhost:8888
+  config-server-health-url: ${application.config-server-base-url}/actuator/health
+
 spring:
   application:
     name: task-server
@@ -16,10 +20,10 @@ spring:
     jdbc:
       initialize-schema: always
   config:
-    import: optional:configserver:http://localhost:8888
+    import: optional:configserver:${application.config-server-base-url}
   cloud:
     config:
-      uri: http://localhost:8888
+      uri: ${application.config-server-base-url}
       name: task-server
       profile: default
       fail-fast: true

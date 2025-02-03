@@ -1,3 +1,6 @@
+application:
+  config-server-base-url: http://localhost:8888
+
 spring:
   application:
     name: config-batch
@@ -7,10 +10,10 @@ spring:
     password: batchuser
     driver-class-name: com.mysql.cj.jdbc.Driver
   config:
-    import: optional:configserver:http://localhost:8888
+    import: optional:configserver:${application.config-server-base-url}
   cloud:
     config:
-      uri: http://localhost:8888
+      uri: ${application.config-server-base-url}
       name: config-batch
       profile: default
       fail-fast: true
@@ -22,16 +25,15 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: update # Adjust as needed: validate, update, create, create-drop
-    show-sql: true # Logs SQL queries for debugging
+      ddl-auto: update
+    show-sql: true
     properties:
       hibernate:
-        format_sql: true # Formats the SQL output for better readability
+        format_sql: true
 
   batch:
     jdbc:
-      initialize-schema: always # Ensures Spring Batch creates required tables
+      initialize-schema: always
 
 server:
   port: 8081
-

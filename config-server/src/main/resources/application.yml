@@ -9,8 +9,8 @@ spring:
       server:
         git:
           uri: https://github.com/Nazarii17/config-service.git
-#          username: your-git-username      # Optional if the repo is private
-#          password: your-git-password      # Optional if the repo is private
+#          username: your-git-username     # Optional if the repo is private
+#          password: your-git-password     # Optional if the repo is private
           default-label: main              # Specify the branch (default is 'master')
 
 application:

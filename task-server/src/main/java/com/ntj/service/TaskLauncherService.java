@@ -33,20 +33,20 @@ public class TaskLauncherService {
     private String tasksLocation;
 
     /**
-     * Launches a task based on the JAR file name and deployment properties.
+     * Launches a task based on the Task name and deployment properties.
      *
-     * @param jarFileName The name of the JAR file to launch (e.g., config-batch-3.4.1.jar).
+     * @param taskName The name of the JAR file to launch (e.g., config-batch).
      * @param properties  Deployment properties for the task.
      */
-    public void launchTask(String jarFileName, Map<String, String> properties) {
+    public void launchTask(String taskName, Map<String, String> properties) {
         try {
-            if (jarFileName == null || jarFileName.isEmpty()) {
+            if (taskName == null || taskName.isEmpty()) {
                 throw new IllegalArgumentException("JAR file name must not be null or empty");
             }
-            final Resource taskResource = findResourceByFileName(jarFileName);
-            final String taskName = jarFileName.replace(".jar", "");
+            final Resource taskResource = findResourceByFileName(taskName);
+            final String validTaskName = taskName.replace(".jar", "");
             final Map<String, String> deploymentProperties = new HashMap<>(properties);
-            final AppDefinition appDefinition = new AppDefinition(taskName, deploymentProperties);
+            final AppDefinition appDefinition = new AppDefinition(validTaskName, deploymentProperties);
 
             final String activeProfile = Arrays.stream(environment.getActiveProfiles())
                     .findFirst()
@@ -62,7 +62,7 @@ public class TaskLauncherService {
             log.info("Task launched with ID: {}", taskId);
 
         } catch (Exception e) {
-            throw new IllegalStateException("Failed to launch task: " + jarFileName, e);
+            throw new IllegalStateException("Failed to launch task: " + taskName, e);
         }
     }
 

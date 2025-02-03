@@ -1,4 +1,4 @@
-package com.ntj.config;
+package com.ntj.config.listener;
 
 import com.ntj.domain.entity.AppConfigurationSnapshot;
 import com.ntj.repository.AppConfigurationSnapshotRepository;
