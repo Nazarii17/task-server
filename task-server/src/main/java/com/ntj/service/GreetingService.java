@@ -1,5 +1,6 @@
 package com.ntj.service;
 
+import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.context.event.ApplicationReadyEvent;
@@ -18,7 +19,7 @@ public class GreetingService {
     @Value("${application.environment.name}")
     public String environmentName;
 
-    @EventListener(ApplicationReadyEvent.class)
+    @PostConstruct
     public String getGreetingMessage() {
         log.info(greetingMessage);
         log.info("Active profile: {}", environmentName);

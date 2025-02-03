@@ -54,7 +54,7 @@ public class SimpleStepExecutionListener implements StepExecutionListener {
                 .findFirst().map(s -> s.replace("source=", ""))
                 .orElseGet(() -> environment.getProperty("source", "CONFIG_BATCH_APPLICATION"));
 
-        log.info("Task source: {}", source);
+        log.info("\uD83D\uDCEC Task source: {}", source);
         return source;
     }
 }

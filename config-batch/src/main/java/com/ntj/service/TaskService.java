@@ -14,10 +14,8 @@ public class TaskService {
     private final TaskExplorer taskExplorer;
 
     public Long getCurrentTaskExecutionId() {
-        TaskExecution latestTaskExecutionForTaskName = taskExplorer.getLatestTaskExecutionForTaskName("config-batch");
-        final long executionId = latestTaskExecutionForTaskName.getExecutionId();
+        final TaskExecution latestTaskExecutionForTaskName = taskExplorer.getLatestTaskExecutionForTaskName("config-batch");
 
-        log.info("Current task execution id is {}", executionId);
-        return executionId;
+        return latestTaskExecutionForTaskName.getExecutionId();
     }
 }

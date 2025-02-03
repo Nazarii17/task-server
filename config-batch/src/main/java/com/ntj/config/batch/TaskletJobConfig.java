@@ -2,6 +2,7 @@ package com.ntj.config.batch;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.core.Step;
+import org.springframework.batch.core.StepExecutionListener;
 import org.springframework.batch.core.job.builder.FlowBuilder;
 import org.springframework.batch.core.job.flow.Flow;
 import org.springframework.batch.core.repository.JobRepository;
@@ -42,7 +43,8 @@ public class TaskletJobConfig {
 
     @Bean
     public Step taskletStep1(final JobRepository jobRepository,
-                             final PlatformTransactionManager platformTransactionManager) {
+                             final PlatformTransactionManager platformTransactionManager,
+                             final @Qualifier("incrementNumberStepExecutionListener") StepExecutionListener incrementNumberStepExecutionListener) {
         return new StepBuilder("taskletStep1", jobRepository)
                 .tasklet((contribution, chunkContext) -> {
                     System.out.println("Executing tasklet CONFIGS_NOT_CHANGED step 1...");
@@ -50,13 +52,15 @@ public class TaskletJobConfig {
                 }, platformTransactionManager)
 
                 .allowStartIfComplete(true)
+                .listener(incrementNumberStepExecutionListener)
 
                 .build();
     }
 
     @Bean
     public Step taskletStep2(final JobRepository jobRepository,
-                             final PlatformTransactionManager platformTransactionManager) {
+                             final PlatformTransactionManager platformTransactionManager,
+                             final @Qualifier("incrementNumberStepExecutionListener") StepExecutionListener incrementNumberStepExecutionListener) {
         return new StepBuilder("taskletStep2", jobRepository)
                 .tasklet((contribution, chunkContext) -> {
                     System.out.println("Executing tasklet CONFIGS_NOT_CHANGED step 2...");
@@ -64,13 +68,15 @@ public class TaskletJobConfig {
                 }, platformTransactionManager)
 
                 .allowStartIfComplete(true)
+                .listener(incrementNumberStepExecutionListener)
 
                 .build();
     }
 
     @Bean
     public Step taskletStep3(final JobRepository jobRepository,
-                             final PlatformTransactionManager platformTransactionManager) {
+                             final PlatformTransactionManager platformTransactionManager,
+                             final @Qualifier("incrementNumberStepExecutionListener") StepExecutionListener incrementNumberStepExecutionListener) {
         return new StepBuilder("taskletStep3", jobRepository)
                 .tasklet((contribution, chunkContext) -> {
                     System.out.println("Executing tasklet CONFIGS_NOT_CHANGED step 3...");
@@ -78,13 +84,15 @@ public class TaskletJobConfig {
                 }, platformTransactionManager)
 
                 .allowStartIfComplete(true)
+                .listener(incrementNumberStepExecutionListener)
 
                 .build();
     }
 
     @Bean
     public Step taskletStep4(final JobRepository jobRepository,
-                             final PlatformTransactionManager platformTransactionManager) {
+                             final PlatformTransactionManager platformTransactionManager,
+                             final @Qualifier("incrementNumberStepExecutionListener") StepExecutionListener incrementNumberStepExecutionListener) {
         return new StepBuilder("taskletStep4", jobRepository)
                 .tasklet((contribution, chunkContext) -> {
                     System.out.println("Executing tasklet CONFIGS_CHANGED step 4...");
@@ -94,7 +102,8 @@ public class TaskletJobConfig {
 
     @Bean
     public Step taskletStep5(final JobRepository jobRepository,
-                             final PlatformTransactionManager platformTransactionManager) {
+                             final PlatformTransactionManager platformTransactionManager,
+                             final @Qualifier("incrementNumberStepExecutionListener") StepExecutionListener incrementNumberStepExecutionListener) {
         return new StepBuilder("taskletStep5", jobRepository)
                 .tasklet((contribution, chunkContext) -> {
                     System.out.println("Executing tasklet CONFIGS_CHANGED step 5...");
@@ -102,13 +111,15 @@ public class TaskletJobConfig {
                 }, platformTransactionManager)
 
                 .allowStartIfComplete(true)
+                .listener(incrementNumberStepExecutionListener)
 
                 .build();
     }
 
     @Bean
     public Step taskletStep6(final JobRepository jobRepository,
-                             final PlatformTransactionManager platformTransactionManager) {
+                             final PlatformTransactionManager platformTransactionManager,
+                             final @Qualifier("incrementNumberStepExecutionListener") StepExecutionListener incrementNumberStepExecutionListener) {
         return new StepBuilder("taskletStep6", jobRepository)
                 .tasklet((contribution, chunkContext) -> {
                     System.out.println("Executing tasklet CONFIGS_CHANGED step 6...");
@@ -116,6 +127,7 @@ public class TaskletJobConfig {
                 }, platformTransactionManager)
 
                 .allowStartIfComplete(true)
+                .listener(incrementNumberStepExecutionListener)
 
                 .build();
     }
