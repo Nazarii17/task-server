@@ -1,0 +1,54 @@
+server:
+  port: 8082
+
+application:
+  config-server-base-url: http://localhost:8888
+spring:
+  application:
+    name: refresh-batch
+
+  main:
+    web-application-type: servlet
+
+  datasource:
+    url: jdbc:mysql://localhost:3307/task_server_schema
+    username: batch_user
+    password: batchuser
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  batch:
+    job:
+      enabled: false
+    jdbc:
+      initialize-schema: always
+
+
+  config:
+    import: optional:configserver:${application.config-server-base-url}
+
+  cloud:
+    config:
+      uri: ${application.config-server-base-url}
+      name: refresh-batch
+      profile: default
+      fail-fast: true
+      retry:
+        max-attempts: 3
+        initial-interval: 1000
+        multiplier: 2
+        max-interval: 5000
+
+management:
+  endpoint:
+    health:
+      show-details: always
+  endpoints:
+    web:
+      exposure:
+        include: refresh, health, info, metrics
+
+batch:
+  urls:
+    task-server: http://localhost:8080/actuator/refresh
+    config-batch: http://localhost:8081/actuator/refresh
+    refresh-batch: http://localhost:8082/actuator/refresh

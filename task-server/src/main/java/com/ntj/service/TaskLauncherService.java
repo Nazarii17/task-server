@@ -35,8 +35,8 @@ public class TaskLauncherService {
     /**
      * Launches a task based on the Task name and deployment properties.
      *
-     * @param taskName The name of the JAR file to launch (e.g., config-batch).
-     * @param properties  Deployment properties for the task.
+     * @param taskName   The name of the JAR file to launch (e.g., config-batch).
+     * @param properties Deployment properties for the task.
      */
     public void launchTask(String taskName, Map<String, String> properties) {
         try {
@@ -95,6 +95,19 @@ public class TaskLauncherService {
         final Resource[] resources = resourcePatternResolver.getResources(tasksLocation + "*.jar");
 
         return Stream.of(resources).collect(Collectors.toList());
+    }
+
+    public List<String> getAllTasks() {
+        return findAllTaskResources().stream()
+                .map(Resource::getFilename)
+                .toList().
+                stream()
+                .map(TaskLauncherService::extractBaseName)
+                .collect(Collectors.toList());
+    }
+
+    private static String extractBaseName(String jarFileName) {
+        return jarFileName.replaceAll("-\\d+(\\.\\d+)*(-SNAPSHOT)?\\.jar$", "");
     }
 }
 

@@ -4,6 +4,7 @@ import com.ntj.service.TaskLauncherService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
@@ -30,5 +31,10 @@ public class TaskController {
         }
         properties.put("source", "TASK_CONTROLLER");
         taskLauncherService.launchTask(taskName, properties);
+    }
+
+    @GetMapping()
+    public List<String> getAllTasks() {
+        return taskLauncherService.getAllTasks();
     }
 }
