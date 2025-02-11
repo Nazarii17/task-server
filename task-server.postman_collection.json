@@ -1,0 +1,243 @@
+{
+	"info": {
+		"_postman_id": "a3fab23b-6af3-42fe-811a-cf3000bbcb48",
+		"name": "task-server",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "9781627"
+	},
+	"item": [
+		{
+			"name": "task_server",
+			"item": [
+				{
+					"name": "actuator-health",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/actuator/health"
+					},
+					"response": []
+				},
+				{
+					"name": "get-all-tasks",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/tasks"
+					},
+					"response": []
+				},
+				{
+					"name": "actuator-refresh",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": "http://localhost:8080/actuator/refresh",
+						"description": "Generated from cURL: curl -X POST http://localhost:8080/actuator/refresh\n"
+					},
+					"response": []
+				},
+				{
+					"name": "launch-task-config-batch",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/tasks/config-batch",
+						"description": "Generated from cURL: curl -X POST http://localhost:8080/tasks/config-batch \\\n     -H \"Content-Type: application/json\" \\\n     -d '{\"spring.profiles.active\":\"local\"}'"
+					},
+					"response": []
+				},
+				{
+					"name": "launch-task-refresh-batch",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/tasks/refresh-batch",
+						"description": "Generated from cURL: curl -X POST http://localhost:8080/tasks/config-batch \\\n     -H \"Content-Type: application/json\" \\\n     -d '{\"spring.profiles.active\":\"local\"}'"
+					},
+					"response": []
+				},
+				{
+					"name": "greeting",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/greeting"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "refresh_batch",
+			"item": [
+				{
+					"name": "actuator-health",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8082/actuator/health"
+					},
+					"response": []
+				},
+				{
+					"name": "actuator-refresh",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": "http://localhost:8082/actuator/refresh",
+						"description": "Generated from cURL: curl -X POST http://localhost:8080/actuator/refresh\n"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "config_server",
+			"item": [
+				{
+					"name": "task_server",
+					"item": [
+						{
+							"name": "task-server-dev",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:8888/task-server/dev"
+							},
+							"response": []
+						},
+						{
+							"name": "task-server-local",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:8888/task-server/local"
+							},
+							"response": []
+						},
+						{
+							"name": "task-server-prod",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:8888/task-server/prod"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "config_batch",
+					"item": [
+						{
+							"name": "config-batch-dev",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:8888/config-batch/dev"
+							},
+							"response": []
+						},
+						{
+							"name": "config-batch-local",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:8888/task-server/local"
+							},
+							"response": []
+						},
+						{
+							"name": "config-batch-prod",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:8888/config-batch/local"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "refresh-batch",
+					"item": [
+						{
+							"name": "refresh-batch-dev",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:8888/refresh-batch/dev"
+							},
+							"response": []
+						},
+						{
+							"name": "refresh-batch-local",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:8888/refresh-batch/local"
+							},
+							"response": []
+						},
+						{
+							"name": "refresh-batch-prod",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "http://localhost:8888/refresh-batch/local"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "actuator-health",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8888/actuator/health"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

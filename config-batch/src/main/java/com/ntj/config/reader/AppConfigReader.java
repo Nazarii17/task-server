@@ -3,6 +3,7 @@ package com.ntj.config.reader;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ntj.config.ApplicationProperties;
 import com.ntj.domain.record.AppConfigRecord;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.ItemReader;
 import org.springframework.batch.item.support.ListItemReader;
 import org.springframework.stereotype.Component;
@@ -12,6 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+@Slf4j
 @Component
 public class AppConfigReader implements ItemReader<AppConfigRecord> {
 
@@ -29,6 +31,7 @@ public class AppConfigReader implements ItemReader<AppConfigRecord> {
 
     private List<AppConfigRecord> fetchRecords(final ApplicationProperties applicationProperties,
                                                final RestTemplate restTemplate) {
+        log.info("FetchRecords start");
         final List<AppConfigRecord> fetchedRecords = new ArrayList<>();
         final ObjectMapper objectMapper = new ObjectMapper();
 

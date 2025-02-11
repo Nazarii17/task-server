@@ -5,12 +5,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ntj.domain.entity.AppConfigurationSnapshot;
 import com.ntj.domain.record.AppConfigRecord;
 import com.ntj.service.TaskService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+@Slf4j
 @Component
 public class ApplicationConfigSnapshotProcessor implements ItemProcessor<AppConfigRecord, AppConfigurationSnapshot> {
 
@@ -23,6 +25,7 @@ public class ApplicationConfigSnapshotProcessor implements ItemProcessor<AppConf
 
     @Override
     public AppConfigurationSnapshot process(final AppConfigRecord record) {
+        log.info("process application config snapshot");
         try {
             final JsonNode root = objectMapper.readTree(record.resources());
             final JsonNode propertySourcesNode = root.get("propertySources");

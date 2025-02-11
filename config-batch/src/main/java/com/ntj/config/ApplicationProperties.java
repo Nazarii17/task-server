@@ -16,15 +16,10 @@ public class ApplicationProperties {
     private Environment environment;
     private Map<String, String> appConfigs;
 
+    @Setter
+    @Getter
     public static class Environment {
         private String name;
 
-        public String getName() {
-            return name;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
     }
 }
