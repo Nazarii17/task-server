@@ -4,3 +4,4 @@ application:
   appConfigs:
     config-batch: ${application.config-server-base-url}/config-batch/local
     task-server: ${application.config-server-base-url}/task-server/local
+    refresh-batch: ${application.config-server-base-url}/refresh-batch/local
