@@ -1,5 +1,6 @@
 package com.ntj.service;
 
+import ch.qos.logback.classic.Level;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
@@ -13,10 +14,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.ResourcePatternResolver;
 import org.springframework.stereotype.Service;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -98,12 +96,43 @@ public class TaskLauncherService {
     }
 
     public List<String> getAllTasks() {
-        return findAllTaskResources().stream()
+        log.info("Get all tasks");
+        final List<String> tasks = findAllTaskResources().stream()
                 .map(Resource::getFilename)
-                .toList().
-                stream()
+                .toList().stream()
                 .map(TaskLauncherService::extractBaseName)
                 .collect(Collectors.toList());
+
+        addAdditionalLogging();
+
+        log.info("Found tasks: {}", tasks);
+        return tasks;
+    }
+
+    private void addAdditionalLogging() {
+        final Random random = new Random();
+        final int randomNumber = random.nextInt(2) + 1;
+
+        if (randomNumber == 1) {
+            log.error("Random number is 1");
+        }
+
+        if (log instanceof ch.qos.logback.classic.Logger logbackLogger) {
+
+            final Level configuredLevel = logbackLogger.getLevel();
+            if (configuredLevel != null) {
+                System.out.println("Explicitly configured log level for '" + logbackLogger.getName() + "': " + configuredLevel);
+            } else {
+                System.out.println("Logger '" + logbackLogger.getName() + "' has no explicit level set. It inherits.");
+            }
+
+            final Level effectiveLevel = logbackLogger.getEffectiveLevel();
+            System.out.println("Effective log level for '" + logbackLogger.getName() + "': " + effectiveLevel);
+
+            if (Level.ERROR == effectiveLevel) {
+                log.error("This is an error level message");
+            }
+        }
     }
 
     private static String extractBaseName(String jarFileName) {

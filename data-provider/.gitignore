@@ -1,6 +1,6 @@
-
+HELP.md
 target/
-!.mvn/wrapper/maven-wrapper.jar
+.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**/target/
 !**/src/test/**/target/
 
@@ -31,6 +31,3 @@ build/
 
 ### VS Code ###
 .vscode/
-/task-server/src/main/resources/tasks/config-batch-3.4.1.jar
-/task-server/src/main/resources/tasks/
-/logs/
