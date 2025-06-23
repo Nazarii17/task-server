@@ -1,10 +1,14 @@
 package com.ntj.service;
 
 import ch.qos.logback.classic.Level;
+import com.ntj.model.taskserver.CronJob;
+import com.ntj.model.taskserver.dto.CronJobDTO;
+import com.ntj.repository.taskserver.CronJobRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cloud.context.config.annotation.RefreshScope;
 import org.springframework.cloud.deployer.spi.core.AppDefinition;
 import org.springframework.cloud.deployer.spi.core.AppDeploymentRequest;
 import org.springframework.cloud.deployer.spi.local.LocalDeployerProperties;
@@ -20,15 +24,21 @@ import java.util.stream.Stream;
 
 @Slf4j
 @Service
+@RefreshScope
 @RequiredArgsConstructor
 public class TaskLauncherService {
 
     private final LocalDeployerProperties localDeployerProperties;
     private final ResourcePatternResolver resourcePatternResolver;
     private final Environment environment;
+    private final CronJobRepository cronJobRepository;
+    private final AuditService auditService;
 
     @Value("${tasks.location:classpath:tasks/}")
     private String tasksLocation;
+
+    @Value("${application.create-audit: true}")
+    private boolean createAudit;
 
     /**
      * Launches a task based on the Task name and deployment properties.
@@ -37,6 +47,7 @@ public class TaskLauncherService {
      * @param properties Deployment properties for the task.
      */
     public void launchTask(String taskName, Map<String, String> properties) {
+        final UUID customTaskId = UUID.randomUUID();
         try {
             if (taskName == null || taskName.isEmpty()) {
                 throw new IllegalArgumentException("JAR file name must not be null or empty");
@@ -50,7 +61,7 @@ public class TaskLauncherService {
                     .findFirst()
                     .orElseThrow(() -> new RuntimeException("Cannot find active profile"));
 
-            final List<String> commandLineArguments = Map.of("spring.profiles.active", activeProfile)
+            final List<String> commandLineArguments = Map.of("spring.profiles.active", activeProfile, "customTaskId", customTaskId.toString())
                     .entrySet().stream()
                     .map(entry -> "--" + entry.getKey() + "=" + entry.getValue())
                     .toList();
@@ -58,6 +69,13 @@ public class TaskLauncherService {
             final AppDeploymentRequest request = new AppDeploymentRequest(appDefinition, taskResource, deploymentProperties, commandLineArguments);
             final String taskId = new LocalTaskLauncher(localDeployerProperties).launch(request);
             log.info("Task launched with ID: {}", taskId);
+
+            if (createAudit) {
+                log.info("Create audit for {}", taskId);
+                auditService.createAudit(taskName, customTaskId);
+            } else {
+                log.info("Skip audit for {}", taskId);
+            }
 
         } catch (Exception e) {
             throw new IllegalStateException("Failed to launch task: " + taskName, e);
@@ -137,6 +155,10 @@ public class TaskLauncherService {
 
     private static String extractBaseName(String jarFileName) {
         return jarFileName.replaceAll("-\\d+(\\.\\d+)*(-SNAPSHOT)?\\.jar$", "");
+    }
+
+    public List<CronJobDTO> getAllCronJobs() {
+        return cronJobRepository.findAll().stream().map(CronJob::toDTO).toList();
     }
 }
 

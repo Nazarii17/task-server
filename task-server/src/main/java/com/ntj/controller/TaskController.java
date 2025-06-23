@@ -1,5 +1,6 @@
 package com.ntj.controller;
 
+import com.ntj.model.taskserver.dto.CronJobDTO;
 import com.ntj.service.TaskLauncherService;
 import org.springframework.web.bind.annotation.*;
 
@@ -36,5 +37,10 @@ public class TaskController {
     @GetMapping()
     public List<String> getAllTasks() {
         return taskLauncherService.getAllTasks();
+    }
+
+    @GetMapping("/cron-job")
+    public List<CronJobDTO> getAllCronJobs() {
+        return taskLauncherService.getAllCronJobs();
     }
 }

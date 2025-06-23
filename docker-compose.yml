@@ -1,7 +1,7 @@
 version: '3.8'
 
 services:
-  mysql:
+  mysql1:
     build:
       context: .
       dockerfile: Dockerfile
@@ -15,4 +15,36 @@ services:
       - "3307:3306"  # Host port 3307 mapped to container port 3306
     volumes:
       - /Users/nazarii.tkachuk/Development/App_volumes/task_server_volume:/var/lib/mysql
+    image: task-server-db:latest
+
+  mysql2:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: task_server_db1
+    environment:
+      MYSQL_DATABASE: task_server_schema
+      MYSQL_USER: batch_user
+      MYSQL_PASSWORD: batchuser
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3377:3306"
+    volumes:
+      - /Users/nazarii.tkachuk/Development/App_volumes/task_server_volume1:/var/lib/mysql
+    image: task-server-db:latest
+
+  mysql3:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: task_server_db2
+    environment:
+      MYSQL_DATABASE: task_server_schema
+      MYSQL_USER: batch_user
+      MYSQL_PASSWORD: batchuser
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3378:3306"
+    volumes:
+      - /Users/nazarii.tkachuk/Development/App_volumes/task_server_volume2:/var/lib/mysql
     image: task-server-db:latest

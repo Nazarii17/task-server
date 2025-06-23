@@ -1,5 +1,6 @@
-package com.ntj.model;
+package com.ntj.model.taskserver;
 
+import com.ntj.model.taskserver.dto.CronJobDTO;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -27,4 +28,8 @@ public class CronJob {
 
     @Column(nullable = false)
     private String cronExpression; // e.g., "0 0/2 * * * ?"
+
+    public CronJobDTO toDTO() {
+        return new CronJobDTO(id, jobName, cronExpression);
+    }
 }

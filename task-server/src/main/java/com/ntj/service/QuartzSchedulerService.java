@@ -1,7 +1,7 @@
 package com.ntj.service;
 
-import com.ntj.model.CronJob;
-import com.ntj.repository.CronJobRepository;
+import com.ntj.model.taskserver.CronJob;
+import com.ntj.repository.taskserver.CronJobRepository;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
