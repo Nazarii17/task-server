@@ -17,6 +17,7 @@ spring:
             - "."  # Allows configs to be fetched from the root folder
             - "refresh-batch"  # Allows refresh-batch configs to be fetched from a subfolder
             - "task-server"  # Allows task-server configs to be fetched from a subfolder
+            - "task-server"  # Allows task-server configs to be fetched from a subfolder
 #          username: your-git-username     # Optional if the repo is private
 #          password: your-git-password     # Optional if the repo is private
           default-label: main              # Specify the branch (default is 'master')
